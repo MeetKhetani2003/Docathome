@@ -10,7 +10,7 @@ import { WhatsAppButton } from "@/components/ui";
 export const metadata = makeMetadata({
   title: "Contact Docathome | Call or WhatsApp a Doctor Home Visit",
   description:
-    "Reach Docathome on +91 96258 53584 by phone or WhatsApp to book a doctor home visit in Delhi, Gurgaon, Noida, Ghaziabad and Dwarka. You can also send the request form straight to WhatsApp.",
+    "Reach Docathome on +91 83838 81773 by phone or WhatsApp to book a doctor home visit in Delhi, Gurgaon, Noida, and Ghaziabad. You can also send the request form straight to WhatsApp.",
   path: "/contact",
   keywords: ["Docathome contact", "doctor home visit phone number Delhi", "WhatsApp doctor at home"],
 });
@@ -29,7 +29,7 @@ export default function ContactPage() {
         chips={
           <>
             <Chip icon="phone">{siteConfig.phone.display}</Chip>
-            <Chip icon="mapPin">Delhi · Gurgaon · Noida · Ghaziabad · Dwarka</Chip>
+            <Chip icon="mapPin">Delhi · Gurgaon · Noida · Ghaziabad</Chip>
           </>
         }
         aside={

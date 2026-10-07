@@ -7,7 +7,7 @@ import { JsonLd } from "@/components/JsonLd";
 export const metadata = makeMetadata({
   title: "Medical Disclaimer",
   description:
-    "Docathome provides doctor home visits for appropriate non-emergency care. This disclaimer explains what the website can and cannot do, and why emergencies need 112 or the nearest hospital.",
+    "Docathome provides doctor home visits for appropriate non-emergency care. This disclaimer explains what the website can and cannot do, and why emergencies need 83838 81773 or the nearest hospital.",
   path: "/medical-disclaimer",
 });
 
@@ -37,7 +37,7 @@ export default function MedicalDisclaimerPage() {
               or a hospital.
             </strong>{" "}
             For chest pain, breathing trouble, heavy bleeding, loss of consciousness, suspected stroke, severe
-            accident injury, or any symptom you believe is life-threatening, call <strong>112</strong> or go to the
+            accident injury, or any symptom you believe is life-threatening, call <strong>83838 81773</strong> or go to the
             nearest hospital immediately. Do not wait for a home visit, and do not use this website to arrange one.
           </p>
 

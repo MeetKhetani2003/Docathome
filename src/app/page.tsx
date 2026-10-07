@@ -9,20 +9,23 @@ import {
   FinalCta,
   HowItWorks,
   ServiceGrid,
-  TestimonialSection,
   VisualBand,
   WhyChooseUs,
 } from "@/components/blocks";
 import { Icon, type IconName } from "@/components/icons";
 import { cn } from "@/lib/cn";
 import { JsonLd } from "@/components/JsonLd";
+import { AIPopup } from "@/components/AIPopup";
+import connectDB from "@/lib/db";
+import Testimonial from "@/models/Testimonial";
 import { makeMetadata, faqSchema, serviceSchema, abs } from "@/lib/seo";
+import { TestimonialsCarousel } from "@/components/sections/TestimonialsCarousel";
 import { faqs, homeFaqSubset, siteConfig } from "@/lib/site";
 
 export const metadata = makeMetadata({
   title: "Docathome | Doctor Home Visits in Delhi NCR",
   description:
-    "A qualified doctor comes to your home in Delhi, Gurgaon, Noida, Ghaziabad and Dwarka. ₹899 flat visit fee, paid after the visit, with one week of free follow-up. Call or WhatsApp +91 96258 53584.",
+    "A qualified doctor comes to your home in Delhi, Gurgaon, Noida, and Ghaziabad. ₹899 flat visit fee, paid after the visit, with one week of free follow-up. Call or WhatsApp +91 83838 81773.",
   path: "/",
   keywords: [
     "doctor home visit Delhi",
@@ -147,10 +150,21 @@ function ContinuitySection() {
   );
 }
 
-export default function HomePage() {
+export default async function HomePage() {
   const homeFaqs = homeFaqSubset.map((i) => faqs[i]);
+
+  await connectDB();
+  const rawTestimonials = await Testimonial.find().sort({ createdAt: -1 }).lean();
+  const dbTestimonials = rawTestimonials.map((t: any) => ({
+    _id: t._id.toString(),
+    name: t.name,
+    place: t.place,
+    date: t.date,
+    quote: t.quote
+  }));
   return (
     <>
+      <AIPopup />
       <Hero />
       <ValueStrip />
       <ServiceGrid />
@@ -159,13 +173,13 @@ export default function HomePage() {
       <ComparisonSection />
       <ContinuitySection />
       <VisualBand />
-      <section aria-label="Emergency guidance" className="bg-paper pb-3 pt-9">
+      <section aria-label="Emergency guidance" className="bg-paper py-10">
         <div className="shell">
           <EmergencyNotice />
         </div>
       </section>
       <AreasSection />
-      <TestimonialSection />
+      <TestimonialsCarousel data={dbTestimonials} />
       <FaqBlock
         items={homeFaqs}
         extra={

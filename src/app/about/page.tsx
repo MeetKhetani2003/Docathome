@@ -18,7 +18,7 @@ import { Reveal } from "@/components/Reveal";
 export const metadata = makeMetadata({
   title: "About Docathome | Doctor Home Visit Service in Delhi NCR",
   description:
-    "Docathome brings qualified doctors to patients' homes across Delhi, Gurgaon, Noida, Ghaziabad and Dwarka for non-emergency care, at a flat ₹899 visit fee with one week of free follow-up.",
+    "Docathome brings qualified doctors to patients' homes across Delhi, Gurgaon, Noida, and Ghaziabad for non-emergency care, at a flat ₹899 visit fee with one week of free follow-up.",
   path: "/about",
   keywords: ["about Docathome", "doctor home visit service Delhi NCR", "home healthcare Delhi"],
 });
@@ -69,7 +69,7 @@ export default function AboutPage() {
         ]}
         chips={
           <>
-            <Chip icon="mapPin">Delhi · Gurgaon · Noida · Ghaziabad · Dwarka</Chip>
+            <Chip icon="mapPin">Delhi · Gurgaon · Noida · Ghaziabad</Chip>
             <Chip icon="clock">Usually about 15 minutes</Chip>
           </>
         }

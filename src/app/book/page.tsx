@@ -9,7 +9,7 @@ import { siteConfig } from "@/lib/site";
 export const metadata = makeMetadata({
   title: "Book a Doctor Home Visit | Docathome",
   description:
-    "Request a doctor home visit in Delhi, Gurgaon, Noida, Ghaziabad or Dwarka. Fill in the patient's details and send them to us on WhatsApp, or call +91 96258 53584. ₹899 flat fee, paid after the visit.",
+    "Request a doctor home visit in Delhi, Gurgaon, Noida, or Ghaziabad. Fill in the patient's details and send them to us on WhatsApp, or call +91 83838 81773. ₹899 flat fee, paid after the visit.",
   path: "/book",
   keywords: ["book doctor home visit", "doctor at home booking Delhi", "home visit appointment"],
 });
@@ -52,7 +52,7 @@ export default function BookPage() {
           <>
             <Chip icon="rupee">{siteConfig.price.amount} flat visit fee</Chip>
             <Chip icon="clock">{siteConfig.arrival.sentence}</Chip>
-            <Chip icon="mapPin">Delhi · Gurgaon · Noida · Ghaziabad · Dwarka</Chip>
+            <Chip icon="mapPin">Delhi · Gurgaon · Noida · Ghaziabad</Chip>
           </>
         }
       />

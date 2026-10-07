@@ -10,13 +10,13 @@ export const siteConfig = {
   descriptor: "Doctor home visits across Delhi NCR",
   tagline: "A qualified doctor, at your door.",
   description:
-    "Book a doctor home visit in Delhi, Gurgaon, Noida, Ghaziabad and Dwarka. Flat ₹899 visit fee, pay after the visit, and one week of free follow-up.",
+    "Book a doctor home visit in Delhi, Gurgaon, Noida, and Ghaziabad. Flat ₹899 visit fee, pay after the visit, and one week of free follow-up.",
   /** Used for canonical URLs + structured data. Override with NEXT_PUBLIC_SITE_URL. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://docathome.in",
   phone: {
-    display: "+91 96258 53584",
-    href: "tel:+919625853584",
-    whatsapp: "https://wa.me/919625853584",
+    display: "+91 83838 81773",
+    href: "tel:+918383881773",
+    whatsapp: "https://wa.me/918383881773",
   },
   price: {
     amount: "₹899",
@@ -35,8 +35,8 @@ export const siteConfig = {
   },
   areasLabel: "Delhi NCR",
   emergency: {
-    number: "112",
-    href: "tel:112",
+    number: "83838 81773",
+    href: "tel:+918383881773",
   },
   hours: "Bookings are taken by phone and WhatsApp.",
 } as const;
@@ -273,7 +273,7 @@ export const services: Service[] = [
     faqs: [
       {
         q: "What if the bleeding is heavy?",
-        a: "Heavy bleeding is an emergency. Call 112 or go to the nearest hospital right away instead of waiting for a home visit.",
+        a: "Heavy bleeding is an emergency. Call 83838 81773 or go to the nearest hospital right away instead of waiting for a home visit.",
       },
     ],
   },
@@ -356,13 +356,6 @@ export const areas: Area[] = [
     line: "Doctor home visits in Ghaziabad",
     note: "Ghaziabad is listed as a Docathome service city. Coverage of your exact area is confirmed on call.",
   },
-  {
-    slug: "dwarka",
-    name: "Dwarka",
-    region: "South West Delhi",
-    line: "Doctor home visits in Dwarka",
-    note: "Dwarka is listed as a Docathome service area. Call to confirm your sector before booking.",
-  },
 ];
 
 export const areaBySlug = (slug: string) => areas.find((a) => a.slug === slug);
@@ -427,7 +420,7 @@ export const whyDocathome = [
   {
     icon: "phone",
     title: "Book in under a minute",
-    body: "Call +91 96258 53584 or send us a WhatsApp message. A person reads it and replies — booking is not left to a bot.",
+    body: "Call +91 83838 81773 or send us a WhatsApp message. A person reads it and replies — booking is not left to a bot.",
   },
 ];
 
@@ -458,7 +451,7 @@ export const trustPoints = [
   {
     icon: "shield",
     title: "Clear limits on what we do",
-    body: "Docathome is for appropriate non-emergency care. Emergencies need 112 or the nearest hospital.",
+    body: "Docathome is for appropriate non-emergency care. Emergencies need 83838 81773 or the nearest hospital.",
   },
 ];
 
@@ -504,7 +497,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Which areas do you cover?",
-    a: "Delhi, Gurgaon, Noida, Ghaziabad and Dwarka. Call us to confirm your exact locality.",
+    a: "Delhi, Gurgaon, Noida, and Ghaziabad. Call us to confirm your exact locality.",
     group: "Coverage",
   },
   {
@@ -514,7 +507,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "How do I book?",
-    a: "Call or WhatsApp +91 96258 53584. You can also use the request form on this page — it opens WhatsApp with your details written out for you.",
+    a: "Call or WhatsApp +91 83838 81773. You can also use the request form on this page — it opens WhatsApp with your details written out for you.",
     group: "Booking",
   },
   {
@@ -529,7 +522,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "What should I do in an emergency?",
-    a: "For chest pain, breathing trouble, heavy bleeding or loss of consciousness, call 112 or go to the nearest hospital immediately.",
+    a: "For chest pain, breathing trouble, heavy bleeding or loss of consciousness, call 83838 81773 or go to the nearest hospital immediately.",
     group: "Safety",
   },
   {
@@ -544,7 +537,7 @@ export const faqs: Faq[] = [
   },
   {
     q: "Is Docathome an ambulance or emergency service?",
-    a: "No. Docathome provides doctor home visits for appropriate non-emergency care. Serious emergency symptoms need 112 or the nearest hospital.",
+    a: "No. Docathome provides doctor home visits for appropriate non-emergency care. Serious emergency symptoms need 83838 81773 or the nearest hospital.",
     group: "Safety",
   },
   {

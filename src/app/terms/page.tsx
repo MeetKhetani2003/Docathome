@@ -51,7 +51,7 @@ export default function TermsPage() {
 
           <h2>5. Coverage</h2>
           <p>
-            The service areas published on this website are Delhi, Gurgaon, Noida, Ghaziabad and Dwarka. Availability
+            The service areas published on this website are Delhi, Gurgaon, Noida, and Ghaziabad. Availability
             within an area is confirmed on call; a request may be declined if no doctor can reach the address in a
             reasonable time.
           </p>
@@ -60,7 +60,7 @@ export default function TermsPage() {
           <p>
             Docathome is not an ambulance or emergency service and is not a substitute for hospital care. If a patient
             has chest pain, breathing trouble, heavy bleeding, loss of consciousness or any other potentially
-            life-threatening symptom, you must call 112 or go to the nearest hospital immediately. Do not use this
+            life-threatening symptom, you must call 83838 81773 or go to the nearest hospital immediately. Do not use this
             website to arrange a home visit for an emergency.
           </p>
 

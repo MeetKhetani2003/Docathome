@@ -77,14 +77,13 @@ export function organizationSchema() {
     name: siteConfig.name,
     description: siteConfig.description,
     url: BASE,
-    telephone: "+91-9625853584",
+    telephone: "+91-8383881773",
     priceRange: siteConfig.price.amount,
     areaServed: [
       { "@type": "City", name: "Delhi" },
       { "@type": "City", name: "Gurgaon" },
       { "@type": "City", name: "Noida" },
       { "@type": "City", name: "Ghaziabad" },
-      { "@type": "Place", name: "Dwarka" },
     ],
     knowsAbout: [
       "doctor home visit",
@@ -97,7 +96,7 @@ export function organizationSchema() {
     contactPoint: [
       {
         "@type": "ContactPoint",
-        telephone: "+91-9625853584",
+        telephone: "+91-8383881773",
         contactType: "customer service",
         areaServed: "IN",
         availableLanguage: ["en", "hi"],

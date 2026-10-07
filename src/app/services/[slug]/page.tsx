@@ -99,21 +99,26 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         <div className="shell grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
           <div>
             <h2 className="h2">What this service covers</h2>
-            <div className="mt-6">
-              <Bullets items={service.covers} />
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {service.covers.map((c, i) => (
+                <div key={i} className="card p-5 flex items-start gap-3 bg-surface hover:border-brand/30 transition-colors">
+                  <Icon name="check" size={20} className="text-brand shrink-0 mt-0.5" />
+                  <span className="text-[0.95rem] leading-relaxed text-brand-deep/85">{c}</span>
+                </div>
+              ))}
             </div>
 
             <h2 className="h2 mt-12">What to expect during the visit</h2>
-            <ol className="mt-6 space-y-3">
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {service.expect.map((e, i) => (
-                <li key={e} className="flex gap-4 rounded-[16px] border border-line bg-surface p-4">
-                  <span className="num inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-tint text-[0.85rem] font-extrabold text-brand">
+                <div key={i} className="card p-5 flex flex-col gap-4 bg-surface hover:border-brand/30 transition-colors">
+                  <span className="num inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-tint text-[0.95rem] font-extrabold text-brand">
                     {i + 1}
                   </span>
-                  <span className="text-[0.97rem] leading-relaxed text-brand-deep/85">{e}</span>
-                </li>
+                  <span className="text-[0.95rem] leading-relaxed text-brand-deep/85">{e}</span>
+                </div>
               ))}
-            </ol>
+            </div>
 
             <div className="mt-12 grid gap-5 sm:grid-cols-2">
               <InfoCard title="Who it may help" icon="users">

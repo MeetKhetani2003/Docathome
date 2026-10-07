@@ -64,7 +64,7 @@ export default async function AreaPage({ params }: { params: Promise<{ slug: str
     },
     {
       q: `Is Docathome an emergency service in ${area.name}?`,
-      a: "No. For chest pain, breathing trouble, heavy bleeding or loss of consciousness, call 112 or go to the nearest hospital immediately.",
+      a: "No. For chest pain, breathing trouble, heavy bleeding or loss of consciousness, call 83838 81773 or go to the nearest hospital immediately.",
     },
   ];
 
@@ -160,7 +160,7 @@ export default async function AreaPage({ params }: { params: Promise<{ slug: str
                 `${area.name} is published as a Docathome service ${area.region ? `area (${area.region})` : "area"}.`,
                 "Exact locality, sector or colony is confirmed on call — we do not promise an address we cannot reach.",
                 "If the nearest available doctor would be late, we tell you before you commit.",
-                "For an emergency in any part of the city, call 112 or go to the nearest hospital.",
+                "For an emergency in any part of the city, call 83838 81773 or go to the nearest hospital.",
               ]}
             />
 
@@ -232,7 +232,7 @@ export default async function AreaPage({ params }: { params: Promise<{ slug: str
             url: abs(`/areas/${area.slug}`),
             description: `${area.line}. Non-emergency doctor home visits, ${siteConfig.price.amount} flat visit fee.`,
             areaServed: { "@type": "City", name: area.name },
-            telephone: "+91-9625853584",
+            telephone: "+91-8383881773",
             priceRange: siteConfig.price.amount,
             availableService: services.map((s) => ({ "@type": "MedicalProcedure", name: s.name })),
             hasMap: undefined,

@@ -6,9 +6,9 @@ import { areas, faqs, siteConfig } from "@/lib/site";
 export const metadata = makeMetadata({
   title: "Doctor Home Visit Areas | Docathome",
   description:
-    "Docathome doctors visit homes in Delhi, Gurgaon, Noida, Ghaziabad and Dwarka. Call or WhatsApp +91 96258 53584 to confirm your locality. ₹899 flat visit fee.",
+    "Docathome doctors visit homes in Delhi, Gurgaon, Noida, and Ghaziabad. Call or WhatsApp +91 83838 81773 to confirm your locality. ₹899 flat visit fee.",
   path: "/areas",
-  keywords: ["doctor at home Delhi", "doctor home visit Gurgaon", "doctor at home Noida", "doctor home visit Ghaziabad", "doctor at home Dwarka"],
+  keywords: ["doctor at home Delhi", "doctor home visit Gurgaon", "doctor at home Noida", "doctor home visit Ghaziabad"],
 });
 
 export default function AreasIndexPage() {

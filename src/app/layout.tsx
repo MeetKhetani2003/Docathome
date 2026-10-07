@@ -27,7 +27,6 @@ export const metadata: Metadata = {
     "home doctor consultation Gurgaon",
     "doctor at home Noida",
     "house call doctor Ghaziabad",
-    "doctor home visit Dwarka",
   ],
   robots: {
     index: true,

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { siteConfig, primaryNav } from "@/lib/site";
+import { siteConfig, primaryNav, areas } from "@/lib/site";
 import { Icon } from "@/components/icons";
 import { cn } from "@/lib/cn";
 
@@ -32,7 +32,7 @@ export function Logo({ onDark = false }: { onDark?: boolean }) {
             onDark ? "text-white" : "text-brand-deep",
           )}
         >
-          Doca<span className={onDark ? "text-[#7ec5bd]" : "text-brand"}>home</span>
+          Docat<span className={onDark ? "text-[#7ec5bd]" : "text-brand"}>home</span>
         </span>
         <span
           className={cn(
@@ -57,7 +57,7 @@ export function AnnouncementBar() {
             <span className="relative inline-flex h-2 w-2 rounded-full bg-[#7ec5bd]" />
           </span>
           <span className="text-white/85">
-            Doctors visiting homes in <strong className="font-semibold text-white">Delhi · Gurgaon · Noida · Ghaziabad · Dwarka</strong>
+            Doctors visiting homes in <strong className="font-semibold text-white">Delhi · Gurgaon · Noida · Ghaziabad</strong>
           </span>
         </p>
         <div className="flex items-center gap-4">
@@ -82,31 +82,73 @@ function NavLinks({ onNavigate, onDark = false }: { onNavigate?: () => void; onD
       {primaryNav
         .filter((item) => item.href !== "/book")
         .map((item) => {
-        const active =
-          item.href === "/" ? pathname === "/" : pathname.startsWith(item.href.replace("#", "/#"));
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            onClick={onNavigate}
-            aria-current={active ? "page" : undefined}
-            className={cn(
-              "relative rounded-lg px-3 py-2 text-[0.95rem] font-semibold transition-colors",
-              onDark ? "text-white/80 hover:text-white" : "text-brand-deep/80 hover:text-brand",
-              !onDark && active && "text-brand",
-            )}
-          >
-            {item.label}
-            <span
-              aria-hidden="true"
+          const active =
+            item.href === "/" ? pathname === "/" : pathname.startsWith(item.href.replace("#", "/#"));
+
+          if (item.label === "Areas") {
+            return (
+              <div key={item.href} className="group relative">
+                <Link
+                  href="/areas"
+                  onClick={onNavigate}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "relative rounded-lg px-3 py-2 text-[0.95rem] font-semibold transition-colors flex items-center gap-1",
+                    onDark ? "text-white/80 hover:text-white" : "text-brand-deep/80 hover:text-brand",
+                    !onDark && active && "text-brand",
+                  )}
+                >
+                  Areas
+                  <Icon name="chevronDown" size={14} className="opacity-70 transition-transform group-hover:rotate-180" />
+                  <span
+                    aria-hidden="true"
+                    className={cn(
+                      "absolute inset-x-3 -bottom-0.5 h-[2px] origin-left rounded-full bg-accent transition-transform duration-200",
+                      active ? "scale-x-100" : "scale-x-0",
+                    )}
+                  />
+                </Link>
+                <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 w-48 z-50">
+                  <div className="rounded-xl border border-line bg-surface p-1.5 shadow-lift">
+                    {areas.map((area) => (
+                      <Link
+                        key={area.slug}
+                        href={`/areas/${area.slug}`}
+                        onClick={onNavigate}
+                        className="block rounded-lg px-3 py-2 text-[0.9rem] font-semibold text-brand-deep hover:bg-brand-tint hover:text-brand transition-colors"
+                      >
+                        {area.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              onClick={onNavigate}
+              aria-current={active ? "page" : undefined}
               className={cn(
-                "absolute inset-x-3 -bottom-0.5 h-[2px] origin-left rounded-full bg-accent transition-transform duration-200",
-                active ? "scale-x-100" : "scale-x-0",
+                "relative rounded-lg px-3 py-2 text-[0.95rem] font-semibold transition-colors",
+                onDark ? "text-white/80 hover:text-white" : "text-brand-deep/80 hover:text-brand",
+                !onDark && active && "text-brand",
               )}
-            />
-          </Link>
-        );
-      })}
+            >
+              {item.label}
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "absolute inset-x-3 -bottom-0.5 h-[2px] origin-left rounded-full bg-accent transition-transform duration-200",
+                  active ? "scale-x-100" : "scale-x-0",
+                )}
+              />
+            </Link>
+          );
+        })}
     </nav>
   );
 }

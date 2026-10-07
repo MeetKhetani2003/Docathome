@@ -1,9 +1,29 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { Icon } from "@/components/icons";
-import { siteConfig, heroTrust } from "@/lib/site";
+import { siteConfig, heroTrust, areas } from "@/lib/site";
 import { cn } from "@/lib/cn";
 
 export function Hero() {
+  const locations = ["Delhi NCR", "Delhi", "Gurgaon", "Noida", "Ghaziabad"];
+  const [locIdx, setLocIdx] = useState(0);
+  const [fade, setFade] = useState(false);
+
+  useEffect(() => {
+    // Rotating the text every 3 seconds (3000ms) for better UX, 
+    // although 30s (30000ms) was mentioned, 3s is standard for these animations.
+    const interval = setInterval(() => {
+      setFade(true);
+      setTimeout(() => {
+        setLocIdx((prev) => (prev + 1) % locations.length);
+        setFade(false);
+      }, 300); // fade out duration
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="relative overflow-hidden bg-surface" aria-labelledby="hero-title">
       {/* Hoisted into <head> by React: start the LCP image as early as possible. */}
@@ -26,11 +46,13 @@ export function Hero() {
           {/* ------------------------------------------------ copy */}
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-tint px-3.5 py-1.5 text-[0.76rem] font-bold uppercase tracking-[0.14em] text-brand">
-              <span className="relative flex h-2 w-2" aria-hidden="true">
+              <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand/60" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
               </span>
-              Doctor home visits · Delhi NCR
+              <span className={cn("transition-opacity duration-300", fade ? "opacity-0" : "opacity-100")}>
+                Doctor home visits · {locations[locIdx]}
+              </span>
             </p>
 
             <h1 id="hero-title" className="h1 mt-5">
@@ -60,31 +82,38 @@ export function Hero() {
               get examined where you are comfortable.
             </p>
 
+            <div className="mt-5 flex flex-wrap items-center gap-2">
+              <span className="text-[0.9rem] font-semibold text-brand-deep/80">Service available in:</span>
+              {areas.map((area) => (
+                <span key={area.slug} className="inline-flex items-center gap-1 rounded-full bg-brand-tint border border-brand/20 px-2.5 py-1 text-[0.82rem] font-bold text-brand shadow-sm">
+                  <Icon name="check" size={14} />
+                  {area.name}
+                </span>
+              ))}
+            </div>
+
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-              <Link
-                href="/book"
-                className={cn(
-                  "group inline-flex min-h-[56px] flex-1 items-center justify-center gap-2 rounded-xl bg-brand px-7 text-[1.05rem] font-bold text-white shadow-[0_16px_36px_-18px_rgba(11,111,107,0.95)] transition-all hover:bg-brand-dark active:translate-y-px sm:flex-none",
-                )}
-              >
-                Book a Home Visit
-                <Icon name="arrowRight" size={19} className="transition-transform group-hover:translate-x-0.5" />
-              </Link>
               <a
                 href={siteConfig.phone.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[56px] flex-1 items-center justify-center gap-2 rounded-xl bg-wa px-6 text-[1.03rem] font-bold text-white transition-colors hover:bg-wa-dark active:translate-y-px sm:flex-none"
+                className="relative inline-flex min-h-[56px] flex-1 items-center justify-center gap-2 rounded-xl bg-wa px-6 text-[1.03rem] font-bold text-white transition-colors hover:bg-wa-dark active:translate-y-px sm:flex-none"
               >
-                <Icon name="whatsapp" size={20} /> WhatsApp Us
+                <span className="absolute inset-0 rounded-xl bg-wa animate-ping-small opacity-40"></span>
+                <span className="relative flex items-center gap-2">
+                  <Icon name="whatsapp" size={20} /> WhatsApp Us
+                </span>
               </a>
               <a
                 href={siteConfig.phone.href}
-                className="inline-flex min-h-[56px] items-center justify-center gap-2 rounded-xl border border-line px-5 text-[1rem] font-semibold text-brand-deep transition-colors hover:border-brand hover:bg-brand-tint"
+                className="relative inline-flex min-h-[56px] flex-1 items-center justify-center gap-2 rounded-xl border border-line bg-white px-5 text-[1rem] font-bold text-brand-deep transition-colors hover:border-brand hover:bg-brand-tint sm:flex-none"
                 aria-label={`Call Docathome on ${siteConfig.phone.display}`}
               >
-                <Icon name="phone" size={18} className="text-brand" />
-                {siteConfig.phone.display}
+                <span className="absolute inset-0 rounded-xl bg-brand animate-ping-small opacity-20" style={{ animationDelay: "0.5s" }}></span>
+                <span className="relative flex items-center gap-2">
+                  <Icon name="phone" size={18} className="text-brand" />
+                  Call
+                </span>
               </a>
             </div>
 

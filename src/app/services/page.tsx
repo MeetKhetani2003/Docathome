@@ -67,65 +67,33 @@ export default function ServicesPage() {
       />
 
       <section className="section">
-        <div className="shell space-y-5">
+        <div className="shell grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {services.map((s, i) => (
-            <article
+            <Link
               key={s.slug}
-              className="card grid gap-6 p-5 transition-colors hover:border-brand-tint-2 sm:p-7 lg:grid-cols-[auto_1.15fr_1fr_auto] lg:items-start lg:gap-9"
+              href={`/services/${s.slug}`}
+              className="group card flex flex-col gap-5 p-6 transition-all duration-300 hover:border-brand/40 hover:-translate-y-1 hover:shadow-lift bg-surface"
             >
-              <div className="flex items-center gap-4 lg:block">
-                <span className="inline-flex h-14 w-14 items-center justify-center rounded-[16px] bg-brand-tint text-brand">
+              <div className="flex items-center justify-between">
+                <span className="inline-flex h-14 w-14 items-center justify-center rounded-[16px] bg-brand-tint text-brand transition-colors group-hover:bg-brand group-hover:text-white">
                   <Icon name={s.icon as IconName} size={27} />
                 </span>
-                <p className="num text-[0.8rem] font-bold tracking-[0.12em] text-brand/50 lg:mt-4 lg:text-center">
+                <p className="num text-[0.85rem] font-bold tracking-[0.12em] text-brand/30">
                   {String(i + 1).padStart(2, "0")}
                 </p>
               </div>
 
               <div>
-                <h2 className="h3">{s.name}</h2>
-                <p className="mt-2.5 text-[1rem] leading-relaxed text-muted">{s.intro}</p>
-                <Link
-                  href={`/services/${s.slug}`}
-                  className="mt-4 inline-flex items-center gap-1.5 font-bold text-brand underline-offset-4 hover:underline"
-                >
-                  Full details for {s.shortName.toLowerCase()} <Icon name="arrowRight" size={16} />
-                </Link>
+                <h2 className="text-[1.25rem] font-bold text-brand-deep group-hover:text-brand transition-colors">{s.name}</h2>
+                <p className="mt-2.5 text-[0.95rem] leading-relaxed text-muted line-clamp-3">{s.intro}</p>
               </div>
-
-              <div className="grid gap-5 sm:grid-cols-2 lg:gap-6">
-                <div>
-                  <p className="text-[0.76rem] font-bold uppercase tracking-[0.12em] text-muted">What it covers</p>
-                  <ul className="mt-2 space-y-1.5">
-                    {s.covers.slice(0, 4).map((c) => (
-                      <li key={c} className="flex gap-2 text-[0.93rem] leading-snug text-brand-deep/85">
-                        <Icon name="check" size={15} className="mt-1 shrink-0 text-brand" />
-                        {c}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p className="text-[0.76rem] font-bold uppercase tracking-[0.12em] text-muted">Who it may help</p>
-                  <p className="mt-2 text-[0.93rem] leading-relaxed text-muted">{s.who}</p>
-                </div>
+              
+              <div className="mt-auto pt-5 border-t border-line flex items-center justify-between">
+                <span className="inline-flex items-center gap-1.5 text-[0.92rem] font-bold text-brand">
+                  View Details <Icon name="arrowRight" size={16} className="transition-transform group-hover:translate-x-1" />
+                </span>
               </div>
-
-              <div className="flex flex-col gap-2.5 lg:w-44">
-                <Link
-                  href="/book"
-                  className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl bg-brand px-4 text-[0.92rem] font-bold text-white transition-colors hover:bg-brand-dark"
-                >
-                  Request a visit
-                </Link>
-                <a
-                  href={siteConfig.phone.href}
-                  className="inline-flex min-h-[46px] items-center justify-center gap-2 rounded-xl border border-line px-4 text-[0.92rem] font-semibold text-brand-deep transition-colors hover:bg-brand-tint"
-                >
-                  <Icon name="phone" size={16} /> Call
-                </a>
-              </div>
-            </article>
+            </Link>
           ))}
         </div>
       </section>

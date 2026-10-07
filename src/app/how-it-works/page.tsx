@@ -52,7 +52,7 @@ const phases: Phase[] = [
     icon: "clipboard",
     body: "We check that a home visit is appropriate for what you describe, then confirm the visit and the arrival window with you.",
     points: [
-      "If the symptoms sound like an emergency, we will tell you to call 112 or go to a hospital instead of booking.",
+      "If the symptoms sound like an emergency, we will tell you to call 83838 81773 or go to a hospital instead of booking.",
       "You are told the expected arrival time before we dispatch — the doctor usually reaches in about 15 minutes.",
       "If we cannot reach your area in reasonable time, we say so rather than take the booking.",
     ],

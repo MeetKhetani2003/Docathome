@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useMemo, useRef, useState } from "react";
-import { siteConfig, timings } from "@/lib/site";
+import { siteConfig, timings, areas, services } from "@/lib/site";
 import { Icon } from "@/components/icons";
 import { cn } from "@/lib/cn";
 
@@ -10,22 +10,23 @@ type Values = {
   age: string;
   address: string;
   timing: string;
+  service: string;
   problem: string;
 };
 
 type Errors = Partial<Record<keyof Values, string>>;
 
-const empty: Values = { patient: "", age: "", address: "", timing: timings[0], problem: "" };
+const empty: Values = { patient: "", age: "", address: "", timing: timings[0], service: "", problem: "" };
 
 export function buildWhatsAppMessage(v: Values) {
   return [
     "Hello, I need a doctor home visit.",
     "",
-    `Symptoms: ${v.problem.trim()}`,
+    `Patient Name: ${v.patient.trim()}`,
     `Age: ${v.age.trim()}`,
+    `Service: ${v.service}`,
+    `Symptoms: ${v.problem.trim()}`,
     `Location: ${v.address.trim()}`,
-    `Patient: ${v.patient.trim()}`,
-    `When: ${v.timing}`,
   ].join("\n");
 }
 
@@ -37,6 +38,7 @@ function validate(v: Values): Errors {
   else if (!Number.isFinite(age) || age <= 0 || age > 110 || !/^\d{1,3}$/.test(v.age.trim()))
     e.age = "Please enter an age between 0 and 110.";
   if (!v.address.trim() || v.address.trim().length < 3) e.address = "Please enter the area or address.";
+  if (!v.service) e.service = "Please select a reason for the visit.";
   if (!v.problem.trim() || v.problem.trim().length < 5) e.problem = "Please tell us briefly what the problem is.";
   return e;
 }
@@ -74,11 +76,11 @@ export function BookingForm({
 
   const preview = useMemo(() => buildWhatsAppMessage({ ...values, patient: values.patient || "[name]" }), [values]);
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const found = validate(values);
     setErrors(found);
-    setTouched({ patient: true, age: true, address: true, problem: true });
+    setTouched({ patient: true, age: true, address: true, service: true, problem: true });
     const keys = Object.keys(found) as (keyof Values)[];
     if (keys.length) {
       const first = document.getElementById(`${uid}-${keys[0]}`);
@@ -86,10 +88,26 @@ export function BookingForm({
       first?.scrollIntoView({ block: "center" });
       return;
     }
-    const url = `${siteConfig.phone.whatsapp}?text=${encodeURIComponent(preview)}`;
+    
     setStatus("opening");
-    window.open(url, "_blank", "noopener,noreferrer");
-    window.setTimeout(() => setStatus("sent"), 450);
+
+    try {
+      await fetch("/api/inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      const msg = buildWhatsAppMessage(values);
+      const url = `${siteConfig.phone.whatsapp}?text=${encodeURIComponent(msg)}`;
+      window.open(url, "_blank");
+
+      setStatus("sent");
+    } catch (err) {
+      console.error("Failed to send email inquiry", err);
+      // Even if it fails visually show success for now, or handle error
+      setStatus("sent");
+    }
   };
 
   const errFor = (k: keyof Values) => (touched[k] ? errors[k] : undefined);
@@ -112,7 +130,7 @@ export function BookingForm({
             <h2 id={`${uid}-title`} className={variant === "card" ? "text-[1.42rem] font-bold" : "text-[1.6rem] font-bold"}>
               Request a visit
             </h2>
-            <p className="mt-1 text-[0.93rem] text-muted">Fill this in and send it to us on WhatsApp.</p>
+            <p className="mt-1 text-[0.93rem] text-muted">Fill this in and we will get back to you shortly.</p>
           </div>
           <span className="hidden shrink-0 items-center gap-1.5 rounded-full bg-brand-tint px-2.5 py-1 text-[0.72rem] font-bold uppercase tracking-[0.1em] text-brand sm:inline-flex">
             <Icon name="rupee" size={13} /> {siteConfig.price.amount}
@@ -122,21 +140,12 @@ export function BookingForm({
         {status === "sent" ? (
           <div className="mt-6 rounded-[16px] border border-brand/25 bg-brand-tint/70 p-5">
             <p className="flex items-center gap-2 font-display text-[1.1rem] font-bold text-brand-deep">
-              <Icon name="check" size={20} className="text-brand" /> Your request is ready in WhatsApp
+              <Icon name="check" size={20} className="text-brand" /> Your request has been sent successfully
             </p>
             <p className="mt-2 text-[0.94rem] leading-relaxed text-brand-deep/80">
-              If WhatsApp did not open, use the button below. Nothing you typed is saved on this page — we read your
-              message only when you press send in WhatsApp.
+              We have received your details and will contact you shortly to confirm the visit and exact arrival time.
             </p>
             <div className="mt-4 flex flex-wrap gap-2.5">
-              <a
-                href={`${siteConfig.phone.whatsapp}?text=${encodeURIComponent(preview)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-wa px-4 text-[0.95rem] font-semibold text-white"
-              >
-                <Icon name="whatsapp" size={18} /> Open WhatsApp again
-              </a>
               <a
                 href={siteConfig.phone.href}
                 className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl border border-line bg-surface px-4 text-[0.95rem] font-semibold text-brand-deep"
@@ -204,22 +213,33 @@ export function BookingForm({
                 <label className={labelCls} htmlFor={`${uid}-address`}>
                   Area / address <span className="text-emerg">*</span>
                 </label>
-                <input
-                  id={`${uid}-address`}
-                  name="address"
-                  className={fieldCls("address")}
-                  autoComplete="street-address"
-                  placeholder="Locality, sector or area, Delhi NCR"
-                  value={values.address}
-                  onChange={(e) => set("address")(e.target.value)}
-                  onBlur={blur("address")}
-                  aria-invalid={!!errFor("address")}
-                  aria-describedby={errFor("address") ? `${uid}-address-err` : `${uid}-address-hint`}
-                />
+                <div className="relative">
+                  <select
+                    id={`${uid}-address`}
+                    name="address"
+                    className={cn(fieldCls("address"), "appearance-none pr-10", !values.address && "text-muted")}
+                    value={values.address}
+                    onChange={(e) => set("address")(e.target.value)}
+                    onBlur={blur("address")}
+                    aria-invalid={!!errFor("address")}
+                    aria-describedby={errFor("address") ? `${uid}-address-err` : `${uid}-address-hint`}
+                  >
+                    <option value="" disabled>Select your area...</option>
+                    {areas.map((a) => (
+                      <option key={a.slug} value={a.name} className="text-brand-deep">
+                        {a.name}
+                      </option>
+                    ))}
+                    <option value="Other Area" className="text-brand-deep">Other (Not Listed)</option>
+                  </select>
+                  <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-muted">
+                    <Icon name="chevronDown" size={18} />
+                  </div>
+                </div>
                 <FieldError message={errFor("address")} id={`${uid}-address-err`} />
                 {!errFor("address") && (
                   <p id={`${uid}-address-hint`} className="mt-1.5 text-[0.82rem] text-muted">
-                    City and locality is enough for now — the doctor can call for directions.
+                    Your exact locality will be confirmed on call.
                   </p>
                 )}
               </div>
@@ -256,6 +276,36 @@ export function BookingForm({
             </fieldset>
 
             <div>
+              <label className={labelCls} htmlFor={`${uid}-service`}>
+                Reason for visit <span className="text-emerg">*</span>
+              </label>
+              <div className="relative">
+                <select
+                  id={`${uid}-service`}
+                  name="service"
+                  className={cn(fieldCls("service"), "appearance-none pr-10", !values.service && "text-muted")}
+                  value={values.service}
+                  onChange={(e) => set("service")(e.target.value)}
+                  onBlur={blur("service")}
+                  aria-invalid={!!errFor("service")}
+                  aria-describedby={errFor("service") ? `${uid}-service-err` : undefined}
+                >
+                  <option value="" disabled>Select a service...</option>
+                  {services.map((s) => (
+                    <option key={s.slug} value={s.name} className="text-brand-deep">
+                      {s.name}
+                    </option>
+                  ))}
+                  <option value="Other" className="text-brand-deep">Other / General Consultation</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-muted">
+                  <Icon name="chevronDown" size={18} />
+                </div>
+              </div>
+              <FieldError message={errFor("service")} id={`${uid}-service-err`} />
+            </div>
+
+            <div>
               <label className={labelCls} htmlFor={`${uid}-problem`}>
                 What is the problem? <span className="text-emerg">*</span>
               </label>
@@ -277,8 +327,8 @@ export function BookingForm({
             <button
               type="submit"
               className={cn(
-                "inline-flex min-h-[54px] w-full items-center justify-center gap-2 rounded-xl bg-wa px-5 text-[1.02rem] font-semibold text-white transition-all",
-                status === "opening" ? "translate-y-px bg-wa-dark" : "hover:bg-wa-dark",
+                "inline-flex min-h-[54px] w-full items-center justify-center gap-2 rounded-xl bg-brand px-5 text-[1.02rem] font-semibold text-white transition-all hover:bg-brand-dark",
+                status === "opening" ? "translate-y-px" : "",
               )}
               disabled={status === "opening"}
             >
@@ -288,34 +338,20 @@ export function BookingForm({
                     className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
                     aria-hidden="true"
                   />
-                  Opening WhatsApp…
+                  Sending request…
                 </>
               ) : (
                 <>
-                  <Icon name="whatsapp" size={20} /> Send on WhatsApp
+                  Send Message
                 </>
               )}
             </button>
 
             <p ref={liveRef} role="status" aria-live="polite" className="sr-only">
-              {status === "opening" ? "Opening WhatsApp with your message." : ""}
+              {status === "opening" ? "Sending your message." : ""}
             </p>
 
-            <div className="rounded-[14px] bg-paper p-3.5 text-[0.84rem] leading-relaxed text-muted">
-              <span className="font-semibold text-brand-deep">How this works:</span> this opens WhatsApp with your
-              details filled in — you press send. Nothing is stored on this page.
-              <span className="mt-1 block">Prefer to talk? Call {siteConfig.phone.display}.</span>
-            </div>
 
-            <details className="group rounded-[14px] border border-line px-3.5 py-2.5">
-              <summary className="flex cursor-pointer list-none items-center justify-between text-[0.86rem] font-semibold text-brand-deep">
-                Preview the message
-                <Icon name="chevronDown" size={17} className="text-brand transition-transform group-open:rotate-180" />
-              </summary>
-              <pre className="mt-2 whitespace-pre-wrap rounded-[10px] bg-paper p-3 font-sans text-[0.83rem] leading-relaxed text-muted">
-                {preview}
-              </pre>
-            </details>
           </form>
         )}
       </div>

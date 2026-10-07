@@ -341,25 +341,25 @@ export function EmergencyNotice({ className }: { className?: string }) {
         className,
       )}
     >
-      <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex gap-4">
+      <div className="flex flex-col gap-5 lg:flex-row lg:flex-wrap lg:items-center lg:justify-between">
+        <div className="flex min-w-[280px] flex-1 gap-4">
           <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] bg-emerg/10 text-emerg">
             <Icon name="alert" size={22} />
           </span>
-          <div>
+          <div className="flex-1">
             <h2 id="emergency-title" className="font-display text-[1.2rem] font-extrabold text-emerg">
               Emergency?
             </h2>
             <p className="mt-1 max-w-xl text-[0.95rem] leading-relaxed text-brand-deep/80">
-              For chest pain, breathing trouble, heavy bleeding or loss of consciousness, call 112 or go to the
+              For chest pain, breathing trouble, heavy bleeding or loss of consciousness, call 83838 81773 or go to the
               nearest hospital right away. Docathome is a home consultation service, not an ambulance or emergency
               service.
             </p>
           </div>
         </div>
-        <div className="flex shrink-0 flex-wrap gap-2.5">
+        <div className="flex shrink-0 flex-col gap-2.5 sm:flex-row">
           <a href={siteConfig.emergency.href} className={cn(btn.emerg, "min-h-[48px] px-5 text-[0.95rem]")}>
-            <Icon name="phone" size={18} /> Call 112
+            <Icon name="phone" size={18} /> Call 83838 81773
           </a>
           <a
             href="https://www.google.com/maps/search/hospital+near+me"
@@ -487,7 +487,7 @@ export function VisualBand() {
             ))}
           </div>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/how-it-works" className={cn(btn.primary, "border border-white/20 bg-white text-brand-deep hover:bg-white/90")}>
+            <Link href="/how-it-works" className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl border border-white/20 bg-white px-6 text-[1.02rem] font-bold text-[#063330] shadow-sm transition-all hover:bg-white/90 active:translate-y-px">
               See how it works
               <Icon name="arrowRight" size={18} />
             </Link>
@@ -585,7 +585,7 @@ const samples = [
     quote:
       "We called at 9pm when my father's fever crossed 101. The doctor reached in about fifteen minutes and we did not have to lift him into a car.",
     who: "Adult son booking for his father",
-    place: "Dwarka",
+    place: "Delhi",
   },
   {
     quote:
@@ -744,7 +744,7 @@ export function FinalCta({
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link
                   href="/book"
-                  className={cn(btn.primary, "bg-white text-brand-deep hover:bg-white/92")}
+                  className="inline-flex min-h-[52px] items-center justify-center gap-2 rounded-xl bg-white px-6 text-[1.02rem] font-bold text-[#063330] shadow-sm transition-all hover:bg-white/92 active:translate-y-px"
                 >
                   Book a Home Visit
                   <Icon name="arrowRight" size={18} />
