@@ -88,7 +88,7 @@ export type TestimonialData = {
 
 export function TestimonialsCarousel({ data }: { data?: TestimonialData[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const displayData = data && data.length > 0 ? data : testimonials;
+  const displayData = data && data.length > 0 ? data : (testimonials as TestimonialData[]);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
