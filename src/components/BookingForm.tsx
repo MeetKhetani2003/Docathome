@@ -91,16 +91,16 @@ export function BookingForm({
     
     setStatus("opening");
 
+    const msg = buildWhatsAppMessage(values);
+    const url = `${siteConfig.phone.whatsapp}?text=${encodeURIComponent(msg)}`;
+    window.open(url, "_blank");
+
     try {
       await fetch("/api/inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
-
-      const msg = buildWhatsAppMessage(values);
-      const url = `${siteConfig.phone.whatsapp}?text=${encodeURIComponent(msg)}`;
-      window.open(url, "_blank");
 
       setStatus("sent");
     } catch (err) {
