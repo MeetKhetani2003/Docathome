@@ -7,6 +7,7 @@ import { cn } from "@/lib/cn";
 
 type Values = {
   patient: string;
+  phone: string;
   age: string;
   address: string;
   timing: string;
@@ -16,13 +17,14 @@ type Values = {
 
 type Errors = Partial<Record<keyof Values, string>>;
 
-const empty: Values = { patient: "", age: "", address: "", timing: timings[0], service: "", problem: "" };
+const empty: Values = { patient: "", phone: "", age: "", address: "", timing: timings[0], service: "", problem: "" };
 
 export function buildWhatsAppMessage(v: Values) {
   return [
     "Hello, I need a doctor home visit.",
     "",
     `Patient Name: ${v.patient.trim()}`,
+    `Phone: ${v.phone.trim()}`,
     `Age: ${v.age.trim()}`,
     `Service: ${v.service}`,
     `Symptoms: ${v.problem.trim()}`,
@@ -33,6 +35,7 @@ export function buildWhatsAppMessage(v: Values) {
 function validate(v: Values): Errors {
   const e: Errors = {};
   if (!v.patient.trim() || v.patient.trim().length < 2) e.patient = "Please enter the patient's name.";
+  if (!v.phone.trim() || v.phone.replace(/[^0-9]/g, "").length < 10) e.phone = "Please enter a valid 10-digit phone number.";
   const age = Number(v.age.trim());
   if (!v.age.trim()) e.age = "Please enter the patient's age.";
   else if (!Number.isFinite(age) || age <= 0 || age > 110 || !/^\d{1,3}$/.test(v.age.trim()))
@@ -80,7 +83,7 @@ export function BookingForm({
     e.preventDefault();
     const found = validate(values);
     setErrors(found);
-    setTouched({ patient: true, age: true, address: true, service: true, problem: true });
+    setTouched({ patient: true, phone: true, age: true, address: true, service: true, problem: true });
     const keys = Object.keys(found) as (keyof Values)[];
     if (keys.length) {
       const first = document.getElementById(`${uid}-${keys[0]}`);
@@ -92,7 +95,7 @@ export function BookingForm({
     setStatus("opening");
 
     const msg = buildWhatsAppMessage(values);
-    const url = `${siteConfig.phone.whatsapp}?text=${encodeURIComponent(msg)}`;
+    const url = `${siteConfig.phone.whatsappBase}?text=${encodeURIComponent(msg)}`;
     window.open(url, "_blank");
 
     try {
@@ -186,6 +189,27 @@ export function BookingForm({
                 aria-describedby={errFor("patient") ? `${uid}-patient-err` : undefined}
               />
               <FieldError message={errFor("patient")} id={`${uid}-patient-err`} />
+            </div>
+
+            <div>
+              <label className={labelCls} htmlFor={`${uid}-phone`}>
+                Phone number <span className="text-emerg">*</span>
+              </label>
+              <input
+                id={`${uid}-phone`}
+                name="phone"
+                type="tel"
+                className={fieldCls("phone")}
+                autoComplete="tel"
+                inputMode="tel"
+                placeholder="e.g. 9876543210"
+                value={values.phone}
+                onChange={(e) => set("phone")(e.target.value)}
+                onBlur={blur("phone")}
+                aria-invalid={!!errFor("phone")}
+                aria-describedby={errFor("phone") ? `${uid}-phone-err` : undefined}
+              />
+              <FieldError message={errFor("phone")} id={`${uid}-phone-err`} />
             </div>
 
             <div className="grid gap-4 sm:grid-cols-[7rem_1fr]">

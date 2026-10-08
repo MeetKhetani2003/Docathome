@@ -42,6 +42,26 @@
     }
   }
   --animate-ping-small: ping-small 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+
+  @keyframes marquee-new {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(-100% - 1rem)); /* -100% of the single track */
+    }
+  }
+  --animate-marquee-new: marquee-new 40s linear infinite;
+
+  @keyframes marquee-new-reverse {
+    from {
+      transform: translateX(calc(-100% - 1rem));
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  --animate-marquee-new-reverse: marquee-new-reverse 40s linear infinite;
 }
 
 @layer base {

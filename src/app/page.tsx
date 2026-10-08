@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Hero } from "@/components/sections/Hero";
+import { ConcernsMarquee } from "@/components/sections/ConcernsMarquee";
 import { BookingForm } from "@/components/BookingForm";
 import {
   AreasSection,
@@ -166,6 +167,7 @@ export default async function HomePage() {
     <>
       <AIPopup />
       <Hero />
+      <ConcernsMarquee />
       <ValueStrip />
       <ServiceGrid />
       <WhyChooseUs />

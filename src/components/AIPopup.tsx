@@ -46,18 +46,18 @@ export function AIPopup() {
             </svg>
             Wait! Try for free
           </div>
-          <h2 className="mt-1.5 text-[1.4rem] font-bold leading-tight">Consult Dr. Priyanka AI</h2>
+          <h2 className="mt-1.5 text-[1.4rem] font-bold leading-tight">Consult Dr. Ajay AI</h2>
         </div>
 
         {/* Body */}
         <div className="p-6">
           <p className="text-[0.95rem] leading-relaxed text-[#4a5568]">
-            Get instant answers to your health questions from <span className="font-bold text-brand">Dr. Priyanka AI</span> — our AI-powered doctor available 24x7. Free, private & no waiting.
+            Get instant answers to your health questions from <span className="font-bold text-brand">Dr. Ajay AI</span> — our AI-powered doctor available 24x7. Free, private & no waiting.
           </p>
           
           <div className="mt-6 flex flex-col gap-3">
             <a 
-              href={`${siteConfig.phone.whatsapp}?text=Hi%20Dr.%20Priyanka%20AI`}
+              href={`${siteConfig.phone.whatsappBase}?text=Hi%20Dr.%20Ajay%20AI`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex min-h-[50px] items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-brand to-brand-dark px-4 text-[0.95rem] font-bold text-white shadow-md transition-transform active:scale-[0.98]"
@@ -69,7 +69,7 @@ export function AIPopup() {
                 <line x1="8" y1="16" x2="8" y2="16" />
                 <line x1="16" y1="16" x2="16" y2="16" />
               </svg>
-              Talk to Dr. Priyanka AI Now
+              Talk to Dr. Ajay AI Now
             </a>
             
             <a 

@@ -27,7 +27,7 @@ export function Hero() {
   return (
     <section className="relative overflow-hidden bg-surface" aria-labelledby="hero-title">
       {/* Hoisted into <head> by React: start the LCP image as early as possible. */}
-      <link rel="preload" as="image" href="/images/doctor-home-visit.jpg" fetchPriority="high" />
+      <link rel="preload" as="image" href="/images/docathome_van_final.jpg" fetchPriority="high" />
       <div
         className="hairline-grid pointer-events-none absolute inset-y-0 right-0 w-1/2 opacity-70"
         aria-hidden="true"
@@ -51,7 +51,7 @@ export function Hero() {
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
               </span>
               <span className={cn("transition-opacity duration-300", fade ? "opacity-0" : "opacity-100")}>
-                Doctor home visits · {locations[locIdx]}
+                Doctor home visits · {locations[locIdx]} 24x7 Available
               </span>
             </p>
 
@@ -121,26 +121,23 @@ export function Hero() {
               {heroTrust.map((m) => (
                 <li key={m.label} className="bg-surface px-4 py-3.5">
                   <p className="num text-[1.28rem] font-extrabold leading-none text-brand-deep">{m.value}</p>
-                  <p className="mt-1.5 text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-muted">
+                  <p className="mt-1.5 text-[0.80rem] font-semibold uppercase tracking-[0.1em] text-muted">
                     {m.label}
                   </p>
                 </li>
               ))}
             </ul>
 
-            <p className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.88rem] text-muted">
-              <span className="inline-flex items-center gap-1.5">
+            <div className="mt-5 flex flex-wrap items-center gap-2.5">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-tint/60 px-3 py-1.5 text-[0.88rem] font-bold text-brand-deep shadow-sm border border-brand/10 transition-colors hover:bg-brand-tint">
                 <Icon name="badge" size={16} className="text-brand" />
                 Well-qualified MBBS doctors and specialists
               </span>
-              <span aria-hidden="true" className="text-line">
-                |
-              </span>
-              <span className="inline-flex items-center gap-1.5">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-tint/60 px-3 py-1.5 text-[0.88rem] font-bold text-brand-deep shadow-sm border border-brand/10 transition-colors hover:bg-brand-tint">
                 <Icon name="rupee" size={16} className="text-brand" />
                 {siteConfig.price.note}
               </span>
-            </p>
+            </div>
           </div>
 
           {/* ------------------------------------------- visual + booking */}
@@ -148,11 +145,11 @@ export function Hero() {
             <div className="relative overflow-hidden rounded-[22px] border border-line bg-brand-tint lg:h-full">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/images/doctor-home-visit.jpg"
+                src="/images/docathome_van_final.jpg"
                 width={1000}
-                height={620}
-                alt="An Indian doctor with a medical bag speaking with a calm elderly patient in the patient's own living room during a home visit"
-                className="w-full object-cover aspect-[16/10] sm:aspect-[16/7] lg:aspect-auto lg:h-full"
+                height={1000}
+                alt="A sleek modern Docathome medical home-service van parked outside a beautiful Indian home with a doctor standing beside it"
+                className="w-full object-cover aspect-square lg:h-full"
                 fetchPriority="high"
                 decoding="async"
               />

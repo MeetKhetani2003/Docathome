@@ -87,13 +87,6 @@ export function Footer() {
               </a>
               <span className="mt-3 block text-[0.88rem] text-white/55">{siteConfig.hours}</span>
             </address>
-            <div className="mt-5 rounded-[14px] border border-emerg/40 bg-emerg/12 p-4">
-              <p className="text-[0.86rem] font-semibold text-white">Not for emergencies</p>
-              <p className="mt-1 text-[0.85rem] leading-relaxed text-white/70">
-                For chest pain, breathing trouble, heavy bleeding or loss of consciousness, call 83838 81773 or go to the
-                nearest hospital immediately.
-              </p>
-            </div>
           </div>
         </div>
 

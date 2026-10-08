@@ -12,11 +12,12 @@ export const siteConfig = {
   description:
     "Book a doctor home visit in Delhi, Gurgaon, Noida, and Ghaziabad. Flat ₹899 visit fee, pay after the visit, and one week of free follow-up.",
   /** Used for canonical URLs + structured data. Override with NEXT_PUBLIC_SITE_URL. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://docathome.in",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://delhidoctorathome.com",
   phone: {
     display: "+91 83838 81773",
     href: "tel:+918383881773",
-    whatsapp: "https://wa.me/918383881773",
+    whatsappBase: "https://wa.me/918383881773",
+    whatsapp: "https://wa.me/918383881773?text=" + encodeURIComponent("Hi, I need a doctor home visit.\nMy area:\nMy symptoms are: "),
   },
   price: {
     amount: "₹899",
