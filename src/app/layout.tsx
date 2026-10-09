@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import Script from "next/script";
 import "./globals.css";
 import { siteConfig } from "@/lib/site";
 import { abs, organizationSchema, websiteSchema } from "@/lib/seo";
@@ -73,6 +74,19 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en-IN">
       <body className="bg-paper text-ink antialiased">
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18234588536"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'AW-18234588536');
+          `}
+        </Script>
         {/* Enables scroll-reveal only when scripting is available and wanted. */}
         <script
           dangerouslySetInnerHTML={{
