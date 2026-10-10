@@ -79,13 +79,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           src="https://www.googletagmanager.com/gtag/js?id=AW-18234588536"
         />
         <Script id="google-ads" strategy="afterInteractive">
-          {\`
+          {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
             gtag('config', 'AW-18234588536');
-          \`}
+          `}
         </Script>
         {/* Enables scroll-reveal only when scripting is available and wanted. */}
         <script
