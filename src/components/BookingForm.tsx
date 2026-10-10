@@ -4,6 +4,7 @@ import { useId, useMemo, useRef, useState } from "react";
 import { siteConfig, timings, areas, services } from "@/lib/site";
 import { Icon } from "@/components/icons";
 import { cn } from "@/lib/cn";
+import { trackConversion } from "@/lib/tracking";
 
 type Values = {
   patient: string;
@@ -105,6 +106,7 @@ export function BookingForm({
         body: JSON.stringify(values),
       });
 
+      trackConversion("formSubmit");
       setStatus("sent");
     } catch (err) {
       console.error("Failed to send email inquiry", err);
